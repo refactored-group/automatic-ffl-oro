@@ -22,7 +22,7 @@ class AutomaticFFLChannelType implements ChannelInterface, IconAwareIntegrationI
      */
     public function getIcon(): string
     {
-        return 'bundles/refactoredgroupautomaticffl/img/automatic_ffl_400x400.jpg';
+        return 'bundles/refactoredgroupautomaticffl/img/FFL-Logo.png';
     }
 
 }
