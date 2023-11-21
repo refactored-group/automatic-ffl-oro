@@ -1,6 +1,6 @@
 <?php
 
-namespace RefactoredGroup\Bundle\AutomaticFFLBundle\Migrations\Schema\v1_2;
+namespace RefactoredGroup\Bundle\AutomaticFFLBundle\Migrations\Schema\v1_1;
 
 use Doctrine\DBAL\Schema\Schema;
 use Oro\Bundle\MigrationBundle\Migration\Migration;

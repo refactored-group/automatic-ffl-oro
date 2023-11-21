@@ -17,19 +17,9 @@ class UniqueActiveIntegrationValidator extends ConstraintValidator
 {
     public const ALIAS = 'refactored_group.automatic_ffl.validator.unique_active_integration_validator';
 
-    /**
-     * @var DoctrineHelper
-     */
-    protected $doctrineHelper;
-    /**
-     * @var TranslatorInterface
-     */
-    protected $translator;
+    protected DoctrineHelper $doctrineHelper;
+    protected TranslatorInterface $translator;
 
-    /**
-     * @param DoctrineHelper $doctrineHelper
-     * @param TranslatorInterface $translator
-     */
     public function __construct(
         DoctrineHelper $doctrineHelper,
         TranslatorInterface $translator

@@ -61,6 +61,9 @@ class AddFFLRequiredBooFieldToOroProductTable implements Migration, ExtendExtens
                         'notnull' => false,
                         OroOptions::KEY => [
                             'extend' => ['owner' => ExtendScope::OWNER_CUSTOM],
+                            'attribute' => [
+                                'is_attribute' => true
+                            ],
                             'entity' => [
                                 'label' => $label
                             ],

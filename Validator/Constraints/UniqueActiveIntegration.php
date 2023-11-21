@@ -9,10 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class UniqueActiveIntegration extends Constraint
 {
-    /**
-     * @var string
-     */
-    public $message = 'refactored_group.automatic_ffl.integration.validator.unique_active_integration';
+    public string $message = 'refactored_group.automatic_ffl.integration.validator.unique_active_integration';
 
     /**
      * {@inheritdoc}
