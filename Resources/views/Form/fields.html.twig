@@ -1,0 +1,27 @@
+{% block rfg_automatic_ffl_settings_widget %}
+    {% import '@OroUI/macros.html.twig' as UI %}
+
+    <fieldset class="form-horizontal">
+        <h5 class="user-fieldset">
+            <span>{{ 'refactored_group.automatic_ffl.settings.form.groups.display_options.title'|trans }}</span>
+        </h5>
+        {{ form_row(form.labels) }}
+    </fieldset>
+
+    <fieldset class="form-horizontal">
+        <h5 class="user-fieldset">
+            <span>{{ 'refactored_group.automatic_ffl.settings.form.groups.integration_configuration.title'|trans }}</span>
+        </h5>
+
+        {# Render custom configuration fields here #}
+
+        <div class="control-group">
+    </fieldset>
+
+    <fieldset class="form-horizontal">
+        <h5 class="user-fieldset">
+            <span>{{ 'refactored_group.automatic_ffl.settings.form.groups.other.title'|trans }}</span>
+        </h5>
+        {{ form_rest(form) }}
+    </fieldset>
+{% endblock %}

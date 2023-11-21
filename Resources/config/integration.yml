@@ -1,0 +1,25 @@
+parameters:
+    refactored_group.automatic_ffl.integration.type: 'automatic_ffl'
+    refactored_group.automatic_ffl.integration.transport.type: 'automatic_ffl'
+    refactored_group.automatic_ffl.integration.channel.type: 'automatic_ffl'
+
+services:
+    refactored_group.automatic_ffl.integration.channel:
+        class: 'RefactoredGroup\Bundle\AutomaticFFLBundle\Integration\AutomaticFFLChannelType'
+        tags:
+            - { name: oro_integration.channel, type: '%refactored_group.automatic_ffl.integration.channel.type%' }
+
+    refactored_group.automatic_ffl.integration.transport:
+        class: 'RefactoredGroup\Bundle\AutomaticFFLBundle\Integration\AutomaticFFLTransport'
+        arguments:
+            - '@oro_security.encoder.default'
+            - '@logger'
+        tags:
+            - { name: oro_integration.transport, type: '%refactored_group.automatic_ffl.integration.transport.type%', channel_type: '%refactored_group.automatic_ffl.integration.channel.type%' }
+            - { name: 'monolog.logger', channel: 'rfg_automatic_ffl' }
+
+    refactored_group.automatic_ffl.method.identifier_generator.method:
+        parent: oro_integration.generator.prefixed_identifier_generator
+        public: true
+        arguments:
+            - '%refactored_group.automatic_ffl.integration.type%'

@@ -1,0 +1,26 @@
+{
+  "name": "refactored_group/automatic-ffl-oro",
+  "description": "Automatic FFL OroCommerce integration",
+  "homepage": "https://github.com/refactored-group/automatic-ffl-oro.git",
+  "license": "OSL-3.0",
+  "authors": [
+    {
+      "name": "Refactored Group",
+      "homepage": "https://www.refactored.group/"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"RefactoredGroup\\Bundle\\AutomaticFFLBundle\\": ""}
+  },
+  "require": {
+    "oro/commerce": "5.1.*"
+  },
+  "repositories": {
+    "oro": {
+      "type": "composer",
+      "url": "https://packagist.orocrm.com"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}

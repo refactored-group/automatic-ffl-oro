@@ -1,0 +1,18 @@
+services:
+    refactored_group.automatic_ffl.provider.automatic_ffl_integration_provider:
+        class: RefactoredGroup\Bundle\AutomaticFFLBundle\Provider\AutomaticFFLIntegrationProvider
+        public: true
+        arguments:
+            - '@oro_entity.doctrine_helper'
+            - '@refactored_group.automatic_ffl.integration.transport'
+
+    RefactoredGroup\Bundle\AutomaticFFLBundle\Provider\AutomaticFFLIntegrationProvider:
+        alias: refactored_group.automatic_ffl.provider.automatic_ffl_integration_provider
+
+    refactored_group.automatic_ffl.validator.unique_active_integration_validator:
+        class: 'RefactoredGroup\Bundle\AutomaticFFLBundle\Validator\Constraints\UniqueActiveIntegrationValidator'
+        arguments:
+            - '@oro_entity.doctrine_helper'
+            - '@translator'
+        tags:
+            - { name: validator.constraint_validator, alias: refactored_group.automatic_ffl.validator.unique_active_integration_validator }

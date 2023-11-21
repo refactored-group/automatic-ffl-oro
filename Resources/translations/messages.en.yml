@@ -1,0 +1,19 @@
+refactored_group:
+    automatic_ffl:
+        channel_type.label: 'Automatic FFL'
+        integration:
+            validator:
+                unique_active_integration: >
+                    Only one Automatic FFL integration can be active at any time
+        product:
+            fields:
+                ffl_required.label: 'FFL Required'
+
+        settings:
+            form:
+                groups:
+                    display_options.title: 'Frontend Display'
+                    integration_configuration.title: 'Integration Configuration'
+                    other.title: 'Other'
+            labels.label: 'Label'
+        transport.label: 'Automatic FFL Integration'
