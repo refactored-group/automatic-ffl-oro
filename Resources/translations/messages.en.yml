@@ -16,4 +16,11 @@ refactored_group:
                     integration_configuration.title: 'Integration Configuration'
                     other.title: 'Other'
             labels.label: 'Label'
+            store_hash.label: 'Store Hash'
+            test_mode:
+                label: 'Sandbox Mode'
+                choices:
+                    no.label: 'No'
+                    yes.label: 'Yes'
+            maps_api_key.label: 'Google Maps API Key'
         transport.label: 'Automatic FFL Integration'
