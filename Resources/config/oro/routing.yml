@@ -1,0 +1,14 @@
+refactored_group_automatic_ffl_frontend_find_a_dealer_page:
+    resource: "@RefactoredGroupAutomaticFFLBundle/Controller/Frontend/FindADealerPageController.php"
+    type:       annotation
+    prefix:     /ffl
+    options:
+        frontend: true
+        expose: true
+
+oro_shopping_list_frontend:
+    resource:     "@RefactoredGroupAutomaticFFLBundle/Controller/Frontend/ShoppingListController.php"
+    type:         annotation
+    prefix:       /customer/shoppinglist
+    options:
+        frontend: true

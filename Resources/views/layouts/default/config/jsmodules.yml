@@ -1,0 +1,4 @@
+dynamic-imports:
+    refactoredgroupautomaticffl:
+        - refactoredgroupautomaticffl/js/app/views/find-a-dealer-btn-view
+

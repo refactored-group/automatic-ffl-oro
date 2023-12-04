@@ -44,4 +44,16 @@ class AutomaticFFLIntegrationProvider
 
         return $this->transport;
     }
+
+    public function isFFLEnabled()
+    {
+        $repository = $this->doctrineHelper->getEntityRepository(Channel::class);
+
+        $channel = $repository->findOneBy([
+            'type'    => AutomaticFFLChannelType::TYPE,
+            'enabled' => true
+        ]);
+
+        return $channel instanceof Channel;
+    }
 }

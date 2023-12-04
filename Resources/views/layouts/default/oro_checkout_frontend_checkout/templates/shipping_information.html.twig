@@ -1,0 +1,69 @@
+{% block _checkout_form_fields_widget -%}
+    {% from '@OroAddress/macros.html.twig' import renderAddress %}
+
+    {% if not isFFLEnabled and not hasFFLProducts %}
+        {% if workflowItem.data.get('disallow_shipping_address_edit') %}
+            <fieldset class="grid-col-6 grid-col-mobile-landscape-12">
+                {{ renderAddress(checkout.shippingAddress, true) }}
+            </fieldset>
+        {% else %}
+            {% import '@OroCheckout/layouts/default/oro_checkout_frontend_checkout/templates/address.html.twig' as address %}
+            {% set hasCustomAddress = false %}
+            {% if form.shipping_address.id.vars.value %}
+                {% set hasCustomAddress = not form.shipping_address.vars.value.customerUserAddress and not form.shipping_address.vars.value.customerAddress %}
+            {% endif %}
+
+            <div class="grid" data-page-component-module="oroui/js/app/components/view-component"
+                 data-page-component-options="{{ {
+                     view: 'orocheckout/js/app/views/address-view',
+                     hideNewAddressForm: true,
+                     selectors: {
+                         address: '#' ~ form.shipping_address.customerAddress.vars.id,
+                         region: '#' ~ form.shipping_address.region.vars.id,
+                         fieldsContainer: '#checkout-address-fields-container',
+                         shipToBillingCheckbox: '#' ~ form.ship_to_billing_address.vars.id,
+                     }
+                 }|json_encode }}">
+
+                <div class="grid-col-6 grid-col-mobile-landscape-12">
+                    {{ form_row(form.shipping_address.customerAddress) }}
+                </div>
+
+                <div class="grid-col-12">
+                    {{ address.address_form(form.shipping_address, form.save_shipping_address, hasCustomAddress) }}
+
+                    {% if workflowItem.data.get('billing_address_has_shipping') or checkout.shipToBillingAddress %}
+                        <div {% if isFFLEnabled and hasFFLProducts %}class="disabled"{% endif %}>
+                            {{ form_row(form.ship_to_billing_address) }}
+                        </div>
+                    {% endif %}
+                    {%  if  form.state_token is defined %}
+                        {{ form_row(form.state_token) }}
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <span class="validation-warning grid-col-12" role="alert">
+        <span class="validation-failed__icon" aria-hidden="true"></span>
+        <span>{{ 'refactored_group.automatic_ffl.checkout.ffl_products_in_shopping_list.message'|trans }}</span>
+    </span>
+
+    {{ block('_ffl_find_a_dealer_view_container_widget') }}
+{%- endblock %}
+
+{% block _ffl_find_a_dealer_view_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-find-a-dealer-view__container',
+        'itemprop': 'findADealerView',
+        'data-page-component-view': 'refactoredgroupautomaticffl/js/app/views/find-a-dealer-btn-view',
+        'data-page-component-options': {
+            findADealerDialogRoute: 'ffl_frontend_show_find_a_dealer_dialog'
+        }
+    }) %}
+
+    <div id="find-a-ffl-dealer" {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}

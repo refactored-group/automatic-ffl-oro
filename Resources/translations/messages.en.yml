@@ -1,6 +1,15 @@
 refactored_group:
     automatic_ffl:
         channel_type.label: 'Automatic FFL'
+        checkout:
+            condition:
+                has_mixed_products_in_shopping_list:
+                    message: 'You have a mixed cart. Please checkout products that require shipment to an FFL separately.'
+            ffl_products_in_shopping_list:
+                message: 'You have products in your cart that require shipment to an FFL.'
+            model:
+                header:
+                    title.label: Find Your Dealer
         integration:
             validator:
                 unique_active_integration: >

@@ -1,0 +1,211 @@
+oro:
+    workflow:
+        b2b_flow_checkout_with_auto_ffl:
+            label: Checkout
+            step:
+                enter_credentials_step:
+                    label: 'Enter Credentials'
+                customer_consents:
+                    label: Agreements
+                enter_billing_address:
+                    label: 'Billing Information'
+                enter_shipping_address:
+                    label: 'Shipping Information'
+                enter_shipping_method:
+                    label: 'Shipping Method'
+                enter_payment:
+                    label: Payment
+                order_review:
+                    label: 'Order Review'
+                order_created:
+                    label: 'Order Created'
+            attribute:
+                billing_address:
+                    label: 'Billing address'
+                shipping_address:
+                    label: 'Shipping address'
+                save_billing_address:
+                    label: 'Save Billing Address'
+                save_shipping_address:
+                    label: 'Save Shipping Address'
+                ship_to_billing_address:
+                    label: 'Ship to this address'
+                po_number:
+                    label: 'PO Number'
+                ship_until:
+                    label: 'Do Not Ship Later Than'
+                customer_notes:
+                    label: 'Customer Notes'
+                payment_method:
+                    label: 'Payment Method'
+                shipping_method:
+                    label: 'Shipping method'
+                shipping_method_type:
+                    label: 'Shipping method type'
+                billing_address_has_shipping:
+                    label: 'If billing address also shipping'
+                allow_manual_source_remove:
+                    label: 'Allow manual source entity removal'
+                disallow_billing_address_edit:
+                    label: 'Disallow billing address edit'
+                disallow_shipping_address_edit:
+                    label: 'Disallow shipping address edit'
+                disallow_shipping_method_edit:
+                    label: 'Disallow shipping method edit'
+                remove_source:
+                    label: 'Remove Source Entity'
+                clear_source:
+                    label: 'Clear Source Entity'
+                auto_remove_source:
+                    label: 'Always remove source entity automatically'
+                source_remove_label:
+                    label: 'Label for remove source'
+                edit_order_link:
+                    label: 'Edit Order Link'
+                payment_in_progress:
+                    label: 'Flag indicates that payment is in progress'
+                payment_validate:
+                    label: 'Payment validation required'
+                payment_save_for_later:
+                    label: 'Save payment data for later use'
+                additional_data:
+                    label: 'Additional Data'
+                state_token:
+                    label: 'Token to track checkout state'
+                order:
+                    label: 'Instance of Order entity'
+                visitor:
+                    label: Visitor
+                email:
+                    label: Email
+                late_registration:
+                    label: 'Late Registration Enabled'
+                customer_consents:
+                    label: 'Customer consents'
+                consents_available:
+                    label: 'Is consents available'
+                line_items_shipping_methods:
+                    label: 'Line items shipping methods'
+                grouped_line_items:
+                    label: 'Grouped line items'
+            transition:
+                __start__:
+                    label: 'Start Checkout (System)'
+                    button_label: 'Create Order'
+                    button_title: ''
+                    warning_message: ''
+                start_from_quote:
+                    label: 'Start Checkout From Quote'
+                    button_label: 'Create Order'
+                    button_title: ''
+                    warning_message: ''
+                start_from_quote_as_guest:
+                    label: 'Start Checkout From Quote As Guest'
+                    button_label: 'Create Order'
+                    button_title: ''
+                    warning_message: ''
+                start_from_shoppinglist:
+                    label: 'Start Checkout From Shopping List'
+                    button_label: 'Create Order'
+                    button_title: ''
+                    warning_message: ''
+                start_from_quickorderform:
+                    label: 'Start Checkout From Quick Order Form'
+                    button_label: 'Create Order'
+                    button_title: ''
+                    warning_message: ''
+                finish_checkout:
+                    label: 'Finish checkout'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                payment_error:
+                    label: 'Payment error'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                paid_partially:
+                    label: 'Paid partially'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                continue_to_billing_address_as_guest:
+                    label: Continue
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                continue_to_billing_address:
+                    label: Continue
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                continue_to_shipping_address:
+                    label: Continue
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                continue_to_shipping_method:
+                    label: Continue
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                continue_to_payment:
+                    label: Continue
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                continue_to_order_review:
+                    label: Continue
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                back_to_enter_credentials:
+                    label: 'Back to Enter Credentials'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                back_to_customer_consents:
+                    label: 'Edit Agreements'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                back_to_billing_address:
+                    label: 'Edit Billing Information'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                back_to_shipping_address:
+                    label: 'Edit Shipping Information'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                back_to_shipping_address_on_fail_address:
+                    label: 'Edit Shipping Information'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                back_to_shipping_method:
+                    label: 'Edit Shipping Method'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                back_to_payment:
+                    label: 'Edit Payment'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                verify_customer_consents:
+                    label: 'Verify Customer Consents'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                verify_payment:
+                    label: 'Verify Payment'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                place_order:
+                    label: 'Submit Order'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''

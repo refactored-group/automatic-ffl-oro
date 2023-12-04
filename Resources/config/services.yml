@@ -9,6 +9,17 @@ services:
     RefactoredGroup\Bundle\AutomaticFFLBundle\Provider\AutomaticFFLIntegrationProvider:
         alias: refactored_group.automatic_ffl.provider.automatic_ffl_integration_provider
 
+    refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider:
+        class: 'RefactoredGroup\Bundle\AutomaticFFLBundle\Layout\DataProvider\AutoFFLIntegrationProvider'
+        public: true
+        arguments:
+            - '@refactored_group.automatic_ffl.provider.automatic_ffl_integration_provider'
+        tags:
+            - { name: layout.data_provider, alias: auto_ffl_integration_provider }
+
+    RefactoredGroup\Bundle\AutomaticFFLBundle\Layout\DataProvider\AutoFFLIntegrationProvider:
+        alias: refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider
+
     refactored_group.automatic_ffl.validator.unique_active_integration_validator:
         class: 'RefactoredGroup\Bundle\AutomaticFFLBundle\Validator\Constraints\UniqueActiveIntegrationValidator'
         arguments:
@@ -16,3 +27,11 @@ services:
             - '@translator'
         tags:
             - { name: validator.constraint_validator, alias: refactored_group.automatic_ffl.validator.unique_active_integration_validator }
+
+    refactored_group.automatic_ffl.layout_context_configurator.checkout_shipping_address:
+        class: RefactoredGroup\Bundle\AutomaticFFLBundle\Layout\Extension\CheckoutShippingAddressContextConfigurator
+        arguments:
+            - '@request_stack'
+            - '@refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider'
+        tags:
+            - { name: layout.context_configurator }
