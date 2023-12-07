@@ -24,6 +24,11 @@ class AutoFFLIntegrationProvider
         return $this->provider->isFFLEnabled();
     }
 
+    public function getFFLSettings()
+    {
+        return $this->provider->getIntegration()->getFFLConfiguration();
+    }
+
     public function hasFFLProducts(Checkout $checkout)
     {
         $numOfFFLProducts = 0;

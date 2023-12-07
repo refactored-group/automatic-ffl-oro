@@ -9,6 +9,7 @@
         display: flex;
         flex-direction: row;
         justify-content: center;
+        margin-bottom: 20px;
     }
     &__title {
         flex: 0 1 30%;
@@ -51,5 +52,84 @@
             padding: 11px 40px;
             max-height: 40px;
         }
+    }
+}
+
+.ffl-search {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+    }
+
+    &__search-results {
+        flex: 0 1 30%;
+        max-height: 100%;
+        overflow-y: auto;
+
+        .ffl-dealer-name {
+            font-weight: bold;
+        }
+
+        p {
+            margin-top: 0rem;
+            margin-bottom: 1rem;
+        }
+
+        .ffl-dealer-preferred {
+            display: block;
+            margin-right: 20px;
+            cursor: pointer;
+            position: relative;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 3px solid #1a79c2;
+            background: #fff;
+
+            &:after {
+                background: #1a79c2;
+                color: #fff;
+                content: '\f005';
+                font-family: 'FontAwesome';
+                height: 27px;
+                width: 29px;
+                font-size: 19px;
+                line-height: 21px;
+                padding-top: 2px;
+                position: absolute;
+                right: 0;
+                text-align: center;
+                top: 0;
+            }
+
+            &:hover {
+                border: 3px solid #ff5501;
+                background: #ffffff;
+            }
+        }
+
+        .ffl-dealer {
+            display: block;
+            position: relative;
+            padding: 20px;
+            border: 3px solid #eee;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            margin-right: 20px;
+            cursor: pointer;
+
+            &:hover {
+                border: 3px solid #ff5501;
+                background: #ffffff;
+            }
+        }
+    }
+
+    &__search-map {
+        flex: 0 1 70%;
+        background: #f2a825;
     }
 }

@@ -24,4 +24,20 @@ class FindADealerPageController extends AbstractController
 //            ],
         ];
     }
+
+    /**
+     * @Route("/dealers/list", name="ffl_frontend_dealers_list")
+     * @Layout
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function getDealerListAction(Request $request)
+    {
+        /** @TODO: Future placeholder for getting a list of dealers */
+        return [
+//            'data' => [
+//            ],
+        ];
+    }
 }

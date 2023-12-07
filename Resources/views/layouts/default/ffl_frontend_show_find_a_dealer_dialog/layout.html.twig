@@ -59,14 +59,9 @@
             </select>
         </div>
         <div class="ffl-option ffl-search">
-            <button type="button" class="action primary dealers-modal-button" data-bind="click: getFflResults">
-                <span data-bind="i18n: 'Search'">Search</span>
-            </button>
+            <button class="dealers-modal-button ffl-search-button" data-role="searchBtn">{{ 'Search'|trans }}</button>
         </div>
         <div class="ffl-option ffl-cancel">
-{#            <button type="button" data-role="closeBtn" class="dealers-modal-button ffl-cancel-button">#}
-{#                <span data-bind="i18n: 'Cancel'">Cancel</span>#}
-{#            </button>#}
             <button class="dealers-modal-button ffl-cancel-button" data-role="closeBtn" type="reset">{{ 'Cancel'|trans }}</button>
         </div>
     </div>
@@ -86,13 +81,27 @@
         '~class': ' ffl-search__search-results',
     }) %}
     <div {{ block('block_attributes') }}>
-        {{ block_widget(block) }}
+        <div class="ffl-searching-message">Searching for dealers...</div>
+        <div class="ffl-no-dealers-message">No dealers have been found.</div>
+        <div class="ffl-results" id="ffl-results">
+    </div>
     </div>
 {% endblock %}
 
 {% block _find_a_ffl_dealer_search_map_container_widget %}
     {% set attr = layout_attr_defaults(attr, {
         '~class': ' ffl-search__search-map',
+        id: 'ffl-map'
+    }) %}
+    <div {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_map_popup_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-search__map_popup_container',
+        id: 'map_popup_container'
     }) %}
     <div {{ block('block_attributes') }}>
         {{ block_widget(block) }}

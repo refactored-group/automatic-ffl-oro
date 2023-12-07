@@ -1,0 +1,14 @@
+services:
+    refactored_group.automatic_ffl.client.factory_basic:
+        class: 'RefactoredGroup\Bundle\AutomaticFFLBundle\Api\Client\Factory\Basic\BasicClientFactory'
+        arguments:
+            - '@oro_integration.transport.rest.client_factory'
+
+    refactored_group.automatic_ffl.client.base_api_client:
+        class: RefactoredGroup\Bundle\AutomaticFFLBundle\Api\Client\BaseApiClient
+        arguments:
+            - '@refactored_group.automatic_ffl.client.factory_basic'
+            - '@refactored_group.automatic_ffl.provider.automatic_ffl_integration_provider'
+
+    RefactoredGroup\Bundle\AutomaticFFLBundle\Api\Client\BaseApiClient:
+        alias: refactored_group.automatic_ffl.client.base_api_client

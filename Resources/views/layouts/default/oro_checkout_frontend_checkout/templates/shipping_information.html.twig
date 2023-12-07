@@ -59,7 +59,12 @@
         'itemprop': 'findADealerView',
         'data-page-component-view': 'refactoredgroupautomaticffl/js/app/views/find-a-dealer-btn-view',
         'data-page-component-options': {
-            findADealerDialogRoute: 'ffl_frontend_show_find_a_dealer_dialog'
+            findADealerDialogRoute: 'ffl_frontend_show_find_a_dealer_dialog',
+            storeHash: fflSettings.store_hash,
+            testMode: fflSettings.test_mode,
+            googleMapsKey: fflSettings.maps_api_key,
+            googleMapsApiUrl: fflSettings.google_maps_api_url,
+            dealersEndpoint: fflSettings.dealers_endpoint
         }
     }) %}
 
