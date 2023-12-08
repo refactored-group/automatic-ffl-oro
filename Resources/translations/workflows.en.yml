@@ -1,7 +1,7 @@
 oro:
     workflow:
         b2b_flow_checkout_with_auto_ffl:
-            label: Checkout
+            label: Checkout with AutoFFL
             step:
                 enter_credentials_step:
                     label: 'Enter Credentials'
@@ -206,6 +206,11 @@ oro:
                     warning_message: ''
                 place_order:
                     label: 'Submit Order'
+                    button_label: ''
+                    button_title: ''
+                    warning_message: ''
+                check_for_mixed_ffl_products:
+                    label: 'Check For Mixed FFL Products'
                     button_label: ''
                     button_title: ''
                     warning_message: ''

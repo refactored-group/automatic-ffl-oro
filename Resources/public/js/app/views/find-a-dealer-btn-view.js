@@ -213,13 +213,13 @@ define(function(require) {
                         this.removeMarkersFromMap();
                     }
                 }).bind(this),
-                error: function(result) {
+                error: (function(result) {
                     console.log('result error', result);
                     searchingMessage.hide();
                     searchResults.hide();
                     noDealersMessage.show();
                     this.removeMarkersFromMap();
-                }
+                }).bind(this)
             });
         },
 
