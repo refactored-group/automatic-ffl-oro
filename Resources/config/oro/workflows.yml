@@ -204,7 +204,6 @@ workflows:
                     - back_to_billing_address
                     - continue_to_billing_address_as_guest
                     - start_from_quickorderform
-                    - check_for_mixed_ffl_products
                 is_final: false
                 _is_start: false
                 entity_acl: {  }
@@ -226,7 +225,6 @@ workflows:
                     - back_to_customer_consents
                     - continue_to_shipping_address
                     - start_from_quickorderform
-                    - check_for_mixed_ffl_products
                 is_final: false
                 _is_start: false
                 entity_acl: {  }
@@ -426,25 +424,6 @@ workflows:
                 init_context_attribute: init_context
                 message_parameters: {  }
                 triggers: {  }
-            check_for_mixed_ffl_products:
-                is_start: false
-                is_unavailable_hidden: false
-                transition_definition: check_for_mixed_ffl_products_definition
-                init_routes: {  }
-                step_to: enter_credentials_step
-                is_hidden: true
-                acl_message: null
-                form_type: Oro\Bundle\WorkflowBundle\Form\Type\WorkflowTransitionType
-                display_type: dialog
-                destination_page: ''
-                form_options: { }
-                page_template: null
-                dialog_template: null
-                init_entities: { }
-                init_datagrids: { }
-                init_context_attribute: init_context
-                message_parameters: { }
-                triggers: { }
             finish_checkout:
                 transition_definition: finish_checkout_definition
                 is_hidden: true
@@ -1255,104 +1234,6 @@ workflows:
                                         '@not_equal':
                                             - $checkout.customerUser.isGuest
                                             - true
-                            parameters:
-                                entity: $checkout
-                                transition: check_for_mixed_ffl_products
-                                workflow: $.definition.name
-                conditions: {  }
-            check_for_mixed_ffl_products_definition:
-                preactions:
-                    -   '@call_service_method':
-                            conditions:
-                                '@blank': $.result.ffl_integration_enabled
-                            parameters:
-                                service: refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider
-                                method: isFFLEnabled
-                                attribute: $.result.ffl_integration_enabled
-                    -   '@call_service_method':
-                            parameters:
-                                service: refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider
-                                method: isFFLEnabled
-                                attribute: $ffl_integration_enabled
-                    -   '@call_service_method':
-                            parameters:
-                                service: refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider
-                                method: getShoppingListFromCheckout
-                                method_parameters:
-                                    - $checkout
-                                attribute: $.result.checkoutShoppingList
-                    -   '@call_service_method':
-                            conditions:
-                                '@and':
-                                    -   '@blank': $.result.has_mixed_ffl_products
-                                    -   '@not_blank': $.result.checkoutShoppingList
-                            parameters:
-                                service: refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider
-                                method: hasMixedProductsInShoppingList
-                                method_parameters:
-                                    - $.result.checkoutShoppingList
-                                attribute: $.result.has_mixed_ffl_products
-                    -   '@call_service_method':
-                            conditions:
-                                '@not_blank': $.result.checkoutShoppingList
-                            parameters:
-                                service: refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider
-                                method: hasMixedProductsInShoppingList
-                                method_parameters:
-                                    - $.result.checkoutShoppingList
-                                attribute: $has_mixed_ffl_products
-                preconditions:
-                    '@and':
-                        -   '@equal':
-                                - true
-                                - $.result.isAllowed
-                        -   '@equal':
-                                - true
-                                - $.result.isCheckoutAllowed
-                actions:
-                    -   '@assign_url':
-                            conditions:
-                                '@and':
-                                    -   '@equal':
-                                            - $.result.ffl_integration_enabled
-                                            - true
-                                    -   '@equal':
-                                            - $.result.has_mixed_ffl_products
-                                            - true
-                            parameters:
-                                attribute: $.redirectUrl
-                                route: oro_shopping_list_frontend_update
-                                route_parameters:
-                                    id: $.result.checkoutShoppingList.id
-                    -
-                        '@redirect':
-                            conditions:
-                                '@and':
-                                    -
-                                        '@equal':
-                                            - $.result.ffl_integration_enabled
-                                            - true
-                                    -
-                                        '@equal':
-                                            - $.result.has_mixed_ffl_products
-                                            - true
-                            route: oro_shopping_list_frontend_update
-                            route_parameters: { id: $.result.checkoutShoppingList.id }
-                    -
-                        '@transit_workflow':
-                            conditions:
-                                '@and':
-                                    -   '@current_step_name_is_equal':
-                                            main_entity: $checkout
-                                            step_name: enter_credentials_step
-                                            workflow: $.definition.name
-                                    -   '@not_empty': $checkout.customerUser
-                                    -   '@not_equal':
-                                            - $checkout.customerUser.isGuest
-                                            - true
-                                    -   '@equal':
-                                            - $.result.has_mixed_ffl_products
-                                            - false
                             parameters:
                                 entity: $checkout
                                 transition: back_to_billing_address

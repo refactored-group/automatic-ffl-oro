@@ -35,3 +35,7 @@ services:
             - '@refactored_group.automatic_ffl.layout.data_provider.auto_ffl_integration_provider'
         tags:
             - { name: layout.context_configurator }
+
+    RefactoredGroup\Bundle\AutomaticFFLBundle\Validator\Constraints\CheckForMixedFFLProductsValidator:
+        tags:
+            - { name: validator.constraint_validator }
