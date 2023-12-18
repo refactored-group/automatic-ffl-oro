@@ -5,6 +5,8 @@ refactored_group:
             condition:
                 has_mixed_products_in_shopping_list:
                     message: 'You have a mixed cart. Please checkout products that require shipment to an FFL separately.'
+            edit_shipping_address:
+                label: 'Edit'
             ffl_products_in_shopping_list:
                 message: 'You have products in your cart that require shipment to an FFL.'
             model:

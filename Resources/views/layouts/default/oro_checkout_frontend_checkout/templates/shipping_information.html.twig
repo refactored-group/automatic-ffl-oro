@@ -43,17 +43,28 @@
                 </div>
             </div>
         {% endif %}
+    {% elseif isFFLEnabled and hasFFLProducts and checkout.shippingAddress%}
+        {% from '@OroAddress/macros.html.twig' import renderAddress %}
+        {% import '@OroCheckout/layouts/default/oro_checkout_frontend_checkout/templates/address.html.twig' as address %}
+        {% if checkout.shippingAddress %}
+            <div class="ffl-dealer-shipping-address">{{ renderAddress(checkout.shippingAddress, true) }}</div>
+            {{ address.address_form(form.shipping_address, form.save_shipping_address, false) }}
+        {% endif %}
+    {% else %}
+        <span class="validation-warning grid-col-12" role="alert">
+            <span class="validation-failed__icon" aria-hidden="true"></span>
+            <span>{{ 'refactored_group.automatic_ffl.checkout.ffl_products_in_shopping_list.message'|trans }}</span>
+        </span>
     {% endif %}
-
-    <span class="validation-warning grid-col-12" role="alert">
-        <span class="validation-failed__icon" aria-hidden="true"></span>
-        <span>{{ 'refactored_group.automatic_ffl.checkout.ffl_products_in_shopping_list.message'|trans }}</span>
-    </span>
 
     {{ block('_ffl_find_a_dealer_view_container_widget') }}
 {%- endblock %}
 
 {% block _ffl_find_a_dealer_view_container_widget %}
+    {% set editButtonNeeded = false %}
+    {% if checkout.shippingAddress %}
+       {% set editButtonNeeded = true %}
+    {% endif %}
     {% set attr = layout_attr_defaults(attr, {
         '~class': ' ffl-find-a-dealer-view__container',
         'itemprop': 'findADealerView',
@@ -64,11 +75,16 @@
             testMode: fflSettings.test_mode,
             googleMapsKey: fflSettings.maps_api_key,
             googleMapsApiUrl: fflSettings.google_maps_api_url,
-            dealersEndpoint: fflSettings.dealers_endpoint
+            dealersEndpoint: fflSettings.dealers_endpoint,
+            entityClass: oro_class_name(checkout),
+            entityId: checkout.id,
+            editButtonNeeded: editButtonNeeded
         }
     }) %}
 
     <div id="find-a-ffl-dealer" {{ block('block_attributes') }}>
         {{ block_widget(block) }}
+        <div id="select-new-dealer" class="select-new-dealer-container">
+        </div>
     </div>
 {% endblock %}

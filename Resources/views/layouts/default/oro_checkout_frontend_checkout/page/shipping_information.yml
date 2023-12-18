@@ -18,9 +18,9 @@ layout:
             optionName: vars.fflSettings
             optionValue: '=data["auto_ffl_integration_provider"].getFFLSettings()'
 
-        -   '@setOption':
-                id: checkout_button_continue
-                optionName: visible
-                optionValue: '=(context["is_logged_in"] || !data["checkout"].getRegisteredCustomerUser() || data["feature"].isFeatureEnabled("allow_checkout_without_email_confirmation_feature")) && (context["is_ffl_enabled"] && context["has_ffl_products"]) && data["checkout"].getShippingAddress()'
+        - '@setOption':
+            id: checkout_button_continue
+            optionName: visible
+            optionValue: '=(context["is_logged_in"] || !data["checkout"].getRegisteredCustomerUser() || data["feature"].isFeatureEnabled("allow_checkout_without_email_confirmation_feature")) && (context["is_ffl_enabled"] && context["has_ffl_products"]) && data["checkout"].getShippingAddress()'
 
     conditions: 'context["workflowStepName"]=="enter_shipping_address" && context["is_ffl_enabled"]==true && context["has_ffl_products"]==true'

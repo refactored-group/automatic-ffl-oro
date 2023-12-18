@@ -5,9 +5,9 @@ define(function(require) {
     const DialogWidget = require('oro/dialog-widget');
     const _ = require('underscore');
     const __ = require('orotranslation/js/translator');
+    const mediator = require('oroui/js/mediator');
     const routing = require('routing');
     const $ = require('jquery');
-    const tools = require('oroui/js/tools');
 
     const FindADealerBtnView = BaseView.extend({
         dialogWidget: null,
@@ -16,6 +16,7 @@ define(function(require) {
 
         events: {
             'click .find-a-dealer-btn': 'openFindADealerModal',
+            'click .select-new-dealer-btn': 'openFindADealerModal',
             'keydown input[name=ffl_search]': 'onGenericKeydown'
         },
 
@@ -26,12 +27,20 @@ define(function(require) {
             googleMapsKey: null,
             googleMapsApiUrl: null,
             dealersEndpoint: null,
-            containerSelector: '#find-a-ffl-dealer',
+            findDealerContainerSelector: '#find-a-ffl-dealer',
+            editContainerSelector: '#select-new-dealer',
             fflResultsSelector: '#ffl-results',
             findADealerBtn: {
                 className: 'btn',
-                text: 'Find a Dealer'
+                text: __('refactored_group.automatic_ffl.checkout.find_a_dealer.label')
             },
+            editBtn: {
+                className: 'btn',
+                text: __('refactored_group.automatic_ffl.checkout.edit_shipping_address.label')
+            },
+            editButtonNeeded: null,
+            entityClass: null,
+            entityId: null,
             googleMap: null,
             currentFflItemId: null,
             fflResults: null,
@@ -56,10 +65,19 @@ define(function(require) {
          */
         initialize: function(options) {
             this.options = $.extend(true, {}, this.options, options);
-            console.log('testing options', this.options);
             FindADealerBtnView.__super__.initialize.call(this, options);
 
-            this.addFindADealerBtn();
+            // Removes update_checkout_state GET parameters to avoid accidental state updates when page is refreshed.
+            const url = location.href.replace(/\&?update_checkout_state=1\&?/i, '');
+            if (url !== location.href) {
+                history.replaceState({}, document.title, url);
+            }
+
+            if (!this.options.editButtonNeeded) {
+                this.addFindADealerBtn();
+            } else {
+                this.addEditBtn();
+            }
         },
 
         /**
@@ -78,7 +96,6 @@ define(function(require) {
          */
         onGenericEnterKeydown: function(e) {
             if (e.keyCode === this.ENTER_KEY_CODE) {
-                console.log('enter key hit');
                 this.getFflResults();
                 e.stopImmediatePropagation();
                 e.preventDefault();
@@ -87,7 +104,7 @@ define(function(require) {
 
         addFindADealerBtn: function() {
             const findADealerBtnElement = this.createFindADealerBtn();
-            $(this.options.containerSelector)
+            $(this.options.findDealerContainerSelector)
                 .append(findADealerBtnElement);
         },
 
@@ -100,8 +117,22 @@ define(function(require) {
                 '</button>';
         },
 
+        addEditBtn: function() {
+            const editBtnElement = this.createEditBtn();
+            $(this.options.editContainerSelector)
+                .append(editBtnElement);
+        },
+
+        createEditBtn: function() {
+            const editBtnClassName = 'select-new-dealer-btn';
+
+            return '<button type="button" class="' + editBtnClassName + '">' +
+                this.options.editBtn.text +
+                '</button>';
+        },
+
         createDealerCard: function(dealer) {
-            return '<div class="' + dealer.class + '">' +
+            return '<div class="' + dealer.class + '" id="selectDealerCard' + dealer.index + '">' +
                 '<p class="ffl-dealer-name">' + dealer.business_name_formatted + '</p>' +
                 '<p class="ffl-dealer-address">' + dealer.formatted_address + '</p>' +
                 '<p class="ffl-dealer-phone"><a href="tel:+1' + dealer.phone_number + '">' + dealer.phone_number + '</a></p>' +
@@ -115,14 +146,10 @@ define(function(require) {
 
             this.dialogWidget = new DialogWidget({
                 url: routing.generate(routeName),
-                stateEnabled: true,
-                // incrementalPosition: true,
+                stateEnabled: false,
                 incrementalPosition: false,
-                // preventModelRemoval: true,
                 dialogOptions: {
                     // modal: true,
-                    // width: '100%',
-                    // height: '100%',
                     state: 'maximized',
                     dialogClass: 'ffl-dealer-dialog-widget',
                     modal: false,
@@ -148,20 +175,14 @@ define(function(require) {
 
                 cancelButton.on('click', (function() {
                     this.dialogWidget.remove();
-                    // delete this.dialog;
+                    delete this.dialog;
                 }).bind(this));
 
                 searchInputField.on('keypress', (function(e) {
-                    console.log('enter keypress');
-                    console.log(e);
                     this.onGenericEnterKeydown(e);
                 }).bind(this));
 
                 searchButton.on('click', (function() {
-                    console.log('search button hit');
-                    console.log('current radius: ', radiusDropdown.val());
-                    console.log('current search input: ', searchInputField.val());
-
                     this.getFflResults();
                 }).bind(this));
 
@@ -191,8 +212,6 @@ define(function(require) {
                 url: this.options.dealersEndpoint + '?location=' + searchInputString + '&radius=' + searchRadius,
                 headers: {'store-hash': this.options.store_hash, 'origin': window.location.origin},
                 success: (function(result) {
-                    console.log('testing result', result);
-
                     if (result && result.dealers.length > 0) {
                         this.parseDealersResult(result.dealers);
                         this.centerMap();
@@ -205,6 +224,11 @@ define(function(require) {
 
                         $(result.dealers).each(function(i, dealer) {
                             searchResults.append(this.createDealerCard(dealer));
+                            const selectDealerCard = document.getElementById('selectDealerCard' + dealer.index);
+
+                            selectDealerCard.addEventListener('click', () => {
+                                this.selectDealer((dealer));
+                            });
                         }.bind(this));
                     } else {
                         searchingMessage.hide();
@@ -236,13 +260,55 @@ define(function(require) {
         },
 
         /**
+         * Select a dealer, close the modal, and save the address
+         * @param dealer
+         */
+        selectDealer: function(dealer) {
+            const data = {};
+            const urlOptions = {};
+
+            if (dealer) {
+                data.dealer = dealer;
+                urlOptions.checkoutId = this.options.entityId;
+                urlOptions.entityClass = this.options.entityClass;
+            } else {
+                return;
+            }
+
+            $.ajax({
+                url: routing.generate('ffl_frontend_update_checkout', urlOptions),
+                data,
+                type: 'post',
+                success: (function(result) {
+                    if (result.successful) {
+                        // Close Modal
+                        this.dialogWidget.remove();
+                        delete this.dialog;
+
+                        // Refresh page after updating checkout
+                        this._updatePageData();
+                    }
+                }).bind(this),
+                error: (function(result) {
+                    console.log('select dealer error', result);
+                })
+            });
+        },
+
+        _updatePageData: function() {
+            mediator.execute('showLoading');
+
+            // Adds update_checkout_state GET parameter to force update checkout state after dealer is selected.
+            const parts = location.href.split('?');
+            const query = (typeof parts[1] === 'undefined' ? '?' : parts[1] + '&') + 'update_checkout_state=1';
+            mediator.execute('redirectTo', {url: parts[0] + '?' + query}, {replace: true, fullRedirect: true});
+        },
+
+        /**
          * Parse API results and create markers on the map
          * @param dealers
          */
         parseDealersResult: function(dealers) {
-            console.log('parseDealersResult function');
-            console.log('dealers list', dealers);
-
             // Clear all markers
             this.removeMarkersFromMap();
 
@@ -313,27 +379,32 @@ define(function(require) {
          * @param dealer
          */
         addPopupToMarker: function(marker, dealer) {
-            const self = this;
             const contentString =
                 '<div style="display: none"><div id="popupcontent' + dealer.index + '" class="popupContent">' +
                 '<div id="siteNotice' + dealer.index + '">' +
-                "</div>" +
+                '</div>' +
                 '<h2 id="firstHeading" class="firstHeading">' + dealer.business_name_formatted + '</h2>' +
                 '<div id="bodyContent">' +
-                "<p>" + dealer.formatted_address + "</p>" +
-                '<p><b>Phone: </b><a href="tel:+1' + dealer.phone_number + '">' + dealer.phone_number + "</a></p>" +
-                "<p><b>License: </b>" + dealer.license + "</p>" +
-                '<p><a href="#" data-bind="{click: function() {selectDealer(' + dealer.index + ')}}">' +
-                "Select this dealer</a> " +
-                "</p>" +
-                "</div>" +
-                "</div></div>";
+                '<p>' + dealer.formatted_address + '</p>' +
+                '<p><b>Phone: </b><a href="tel:+1' + dealer.phone_number + '">' + dealer.phone_number + '</a></p>' +
+                '<p><b>License: </b>' + dealer.license + '</p>' +
+                '<p><a href="#" id="selectDealer' + dealer.index + '">' +
+                'Select this dealer</a> ' +
+                '</p>' +
+                '</div>' +
+                '</div></div>';
             $('#popupcontent' + dealer.index).remove();
             $('#map_popup_container').append(contentString);
             const domElement = document.getElementById('popupcontent' + dealer.index);
 
             const infowindow = new google.maps.InfoWindow({
-                content: domElement,
+                content: domElement
+            });
+
+            const selectDealer = document.getElementById('selectDealer' + dealer.index);
+
+            selectDealer.addEventListener('click', () => {
+                this.selectDealer((dealer));
             });
 
             marker.addListener('click', () => {
@@ -365,7 +436,6 @@ define(function(require) {
         },
 
         loadGoogleMaps: function() {
-            console.log('load google maps');
             const data = {};
 
             if (this.options.googleMapsKey) {
@@ -389,13 +459,16 @@ define(function(require) {
             });
         },
 
+        hasGoogleMaps: function() {
+            return !_.isUndefined(window.google) && google.hasOwnProperty('maps');
+        },
+
         /**
          * Init Google Maps
          */
         initMap: function() {
             // Init Google Maps
             const myLatLng = {lat: 40.363, lng: -95.044};
-            console.log('testing ffl-map id', document.getElementById('ffl-map'));
             this.options.googleMap = new google.maps.Map(document.getElementById('ffl-map'), {
                 zoom: 4,
                 center: myLatLng,
@@ -407,8 +480,6 @@ define(function(require) {
                 streetViewControl: false,
                 mapTypeId: 'roadmap'
             });
-
-            console.log('testing googlemap', this.options.googleMap);
         }
     });
 
