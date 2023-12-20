@@ -162,6 +162,10 @@
 
 @media screen and (max-width: 801px) {
     .ffl-dealer-dialog-widget {
+        .ui-dialog-content {
+            padding-left: 2.6rem;
+            padding-right: 2.6rem;
+        }
         .ffl-header {
             &-container {
                 flex-wrap: wrap;
@@ -169,8 +173,11 @@
 
             &__title {
                 flex: 0 1 100%;
-                font-size: 2.6rem;
                 text-align: center;
+
+                .ffl-header_title_text {
+                    font-size: 2.4rem;
+                }
             }
 
             &__search-field {
@@ -183,6 +190,7 @@
                     margin: 0;
                     text-align: center;
                     width: 100%;
+                    font-size: 15px;
                 }
             }
 
@@ -216,11 +224,17 @@
             &__container {
                 flex-direction: column-reverse;
                 flex-wrap: nowrap;
+                position: relative;
+                height: 75vh;
             }
 
             &__search-map {
                 flex: 0 1 100%;
                 max-width: 92vw;
+            }
+
+            &__search-results {
+                margin-top: 20px;
             }
         }
     }
