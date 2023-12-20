@@ -25,7 +25,7 @@
 
         .ffl-search-input {
             width: 90%;
-            padding: 20px 40px;
+            padding: 10px 40px;
             font-size: 20px;
             border-top: 0;
             border-right: 0;
@@ -45,6 +45,18 @@
 
         button {
             height: 40px;
+        }
+
+        .ffl-miles {
+            div {
+                width: 90%;
+            }
+        }
+
+        .ffl-search-button {
+            background: #1979c3;
+            border: 1px solid #1979c3;
+            color: #fff;
         }
 
         .dealers-modal-button {
@@ -134,8 +146,82 @@
         max-height: 78vh;
         max-width: 64vw;
     }
+
+    &__search-map>div:first-child {
+        height: 90%;
+    }
 }
 
 .ffl-find-a-dealer-view__container {
     margin-top: 10px;
+}
+
+.ffl-dealer-dialog-widget {
+    position: fixed !important;
+}
+
+@media screen and (max-width: 801px) {
+    .ffl-dealer-dialog-widget {
+        .ffl-header {
+            &-container {
+                flex-wrap: wrap;
+            }
+
+            &__title {
+                flex: 0 1 100%;
+                font-size: 2.6rem;
+                text-align: center;
+            }
+
+            &__search-field {
+                flex: 0 1 100%;
+                padding-bottom: 10px;
+                margin-top: 20px;
+
+                #ffl-input-search {
+                    padding: 0 0 5px;
+                    margin: 0;
+                    text-align: center;
+                    width: 100%;
+                }
+            }
+
+            &__search-options {
+                flex: 0 1 100%;
+                display: unset;
+
+                .ffl-miles {
+                    padding-bottom: 10px
+                }
+
+                .ffl-search {
+                    float: left;
+                    width: 50%;
+
+                    button {
+                        background: #1979c3;
+                        border: 1px solid #1979c3;
+                        color: #fff;
+                    }
+                }
+
+                .ffl-cancel {
+                    float: right;
+                    width: 50%;
+                }
+            }
+        }
+
+        .ffl-search {
+            &__container {
+                flex-direction: column-reverse;
+                flex-wrap: nowrap;
+            }
+
+            &__search-map {
+                flex: 0 1 100%;
+                max-width: 92vw;
+            }
+        }
+    }
 }

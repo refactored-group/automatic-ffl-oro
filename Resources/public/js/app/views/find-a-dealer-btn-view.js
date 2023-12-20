@@ -149,16 +149,16 @@ define(function(require) {
                 stateEnabled: false,
                 incrementalPosition: false,
                 dialogOptions: {
-                    // modal: true,
                     state: 'maximized',
                     dialogClass: 'ffl-dealer-dialog-widget',
-                    modal: false,
+                    modal: true,
                     title: null,
-                    autoResize: false,
-                    resizable: false,
-                    draggable: false,
-                    width: 'auto',
-                    position: null
+                    limitTo: '#container'
+                    // autoResize: false,
+                    // resizable: false,
+                    // draggable: false,
+                    // width: 'auto',
+                    // position: 'fixed'
                 }
             });
 
