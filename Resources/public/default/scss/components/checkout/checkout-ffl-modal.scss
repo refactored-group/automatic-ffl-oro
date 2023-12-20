@@ -162,6 +162,18 @@
 
 @media screen and (max-width: 801px) {
     .ffl-dealer-dialog-widget {
+        .ui-dialog-titlebar {
+            padding: 25px 16px 0;
+
+            .ui-dialog-titlebar-buttonpane {
+                right: 10px;
+                .close-dialog:before {
+                    font-size: 24px;
+                    color: #666;
+                }
+            }
+        }
+
         .ui-dialog-content {
             padding-left: 2.6rem;
             padding-right: 2.6rem;
@@ -199,7 +211,12 @@
                 display: unset;
 
                 .ffl-miles {
-                    padding-bottom: 10px
+                    padding-bottom: 10px;
+
+                    div {
+                        width: 100%;
+                        font-weight: 600;
+                    }
                 }
 
                 .ffl-search {
@@ -217,6 +234,12 @@
                     float: right;
                     width: 50%;
                 }
+
+                .ffl-option {
+                    button {
+                        font-weight: 600;
+                    }
+                }
             }
         }
 
@@ -225,11 +248,11 @@
                 flex-direction: column-reverse;
                 flex-wrap: nowrap;
                 position: relative;
-                height: 75vh;
+                height: auto;
             }
 
             &__search-map {
-                flex: 0 1 100%;
+                flex: 0 1 40vh;
                 max-width: 92vw;
             }
 
