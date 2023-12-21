@@ -1,0 +1,264 @@
+/* @theme: default; */
+
+.find-a-dealer-btn {
+    margin-top: 16px;
+}
+
+.ffl-header {
+    &-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    &__title {
+        flex: 0 1 30%;
+        max-height: 100%;
+
+        .ffl-header_title_text {
+            font-size: 40px;
+            text-transform: uppercase;
+        }
+    }
+    &__search-field {
+        flex: 0 1 40%;
+
+        .ffl-search-input {
+            width: 90%;
+            padding: 10px 40px;
+            font-size: 20px;
+            border-top: 0;
+            border-right: 0;
+            border-left: 0;
+            margin-right: 3px;
+        }
+    }
+    &__search-options {
+        display: flex;
+        flex: 0 1 30%;
+        flex-direction: row;
+        justify-content: center;
+
+        .ffl-option {
+            flex: 0 1 30%;
+        }
+
+        button {
+            height: 40px;
+        }
+
+        .ffl-miles {
+            div {
+                width: 90%;
+            }
+        }
+
+        .ffl-search-button {
+            background: #1979c3;
+            border: 1px solid #1979c3;
+            color: #fff;
+        }
+
+        .dealers-modal-button {
+            width: 90%;
+            padding: 11px 40px;
+            max-height: 40px;
+        }
+    }
+}
+
+.ffl-search {
+    &__container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+    }
+
+    &__search-results {
+        flex: 0 1 30%;
+        max-height: 100%;
+        overflow-y: auto;
+
+        .ffl-dealer-name {
+            font-weight: bold;
+        }
+
+        p {
+            margin-top: 0rem;
+            margin-bottom: 1rem;
+        }
+
+        .ffl-dealer-preferred {
+            display: block;
+            margin-right: 20px;
+            cursor: pointer;
+            position: relative;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 3px solid #1a79c2;
+            background: #fff;
+
+            &:after {
+                background: #1a79c2;
+                color: #fff;
+                content: '\f005';
+                font-family: 'FontAwesome';
+                height: 27px;
+                width: 29px;
+                font-size: 19px;
+                line-height: 21px;
+                padding-top: 2px;
+                position: absolute;
+                right: 0;
+                text-align: center;
+                top: 0;
+            }
+
+            &:hover {
+                border: 3px solid #ff5501;
+                background: #ffffff;
+            }
+        }
+
+        .ffl-dealer {
+            display: block;
+            position: relative;
+            padding: 20px;
+            border: 3px solid #eee;
+            margin-bottom: 20px;
+            background: #f9f9f9;
+            margin-right: 20px;
+            cursor: pointer;
+
+            &:hover {
+                border: 3px solid #ff5501;
+                background: #ffffff;
+            }
+        }
+    }
+
+    &__search-map {
+        flex: 0 1 70%;
+        background: #f2a825;
+        max-height: 78vh;
+        max-width: 64vw;
+    }
+
+    &__search-map>div:first-child {
+        height: 90%;
+    }
+}
+
+.ffl-find-a-dealer-view__container {
+    margin-top: 10px;
+}
+
+.ffl-dealer-dialog-widget {
+    position: fixed !important;
+}
+
+@media screen and (max-width: 801px) {
+    .ffl-dealer-dialog-widget {
+        .ui-dialog-titlebar {
+            padding: 25px 16px 0;
+
+            .ui-dialog-titlebar-buttonpane {
+                right: 10px;
+                .close-dialog:before {
+                    font-size: 24px;
+                    color: #666;
+                }
+            }
+        }
+
+        .ui-dialog-content {
+            padding-left: 2.6rem;
+            padding-right: 2.6rem;
+        }
+        .ffl-header {
+            &-container {
+                flex-wrap: wrap;
+            }
+
+            &__title {
+                flex: 0 1 100%;
+                text-align: center;
+
+                .ffl-header_title_text {
+                    font-size: 2.4rem;
+                }
+            }
+
+            &__search-field {
+                flex: 0 1 100%;
+                padding-bottom: 10px;
+                margin-top: 20px;
+
+                #ffl-input-search {
+                    padding: 0 0 5px;
+                    margin: 0;
+                    text-align: center;
+                    width: 100%;
+                    font-size: 15px;
+                }
+            }
+
+            &__search-options {
+                flex: 0 1 100%;
+                display: unset;
+
+                .ffl-miles {
+                    padding-bottom: 10px;
+
+                    div {
+                        width: 100%;
+                        font-weight: 600;
+                    }
+                }
+
+                .ffl-search {
+                    float: left;
+                    width: 50%;
+
+                    button {
+                        background: #1979c3;
+                        border: 1px solid #1979c3;
+                        color: #fff;
+                    }
+                }
+
+                .ffl-cancel {
+                    float: right;
+                    width: 50%;
+                }
+
+                .ffl-option {
+                    button {
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+
+        .ffl-search {
+            &__container {
+                flex-direction: column-reverse;
+                flex-wrap: nowrap;
+                position: relative;
+                height: auto;
+            }
+
+            &__search-map {
+                flex: 0 1 40vh;
+                max-width: 92vw;
+            }
+
+            &__search-results {
+                margin-top: 20px;
+            }
+        }
+    }
+}

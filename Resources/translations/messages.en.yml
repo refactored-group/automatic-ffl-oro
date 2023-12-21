@@ -1,6 +1,17 @@
 refactored_group:
     automatic_ffl:
         channel_type.label: 'Automatic FFL'
+        checkout:
+            condition:
+                has_mixed_products_in_shopping_list:
+                    message: 'You have a mixed cart. Please checkout products that require shipment to an FFL separately.'
+            edit_shipping_address:
+                label: 'Edit'
+            ffl_products_in_shopping_list:
+                message: 'You have products in your cart that require shipment to an FFL.'
+            model:
+                header:
+                    title.label: Find Your Dealer
         integration:
             validator:
                 unique_active_integration: >
@@ -16,4 +27,11 @@ refactored_group:
                     integration_configuration.title: 'Integration Configuration'
                     other.title: 'Other'
             labels.label: 'Label'
+            store_hash.label: 'Store Hash'
+            test_mode:
+                label: 'Sandbox Mode'
+                choices:
+                    no.label: 'No'
+                    yes.label: 'Yes'
+            maps_api_key.label: 'Google Maps API Key'
         transport.label: 'Automatic FFL Integration'

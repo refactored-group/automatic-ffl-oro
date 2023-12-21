@@ -37,6 +37,27 @@ class AutomaticFFLSettings extends Transport
     private $labels;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="autoffl_store_hash", type="string", length=255, nullable=false)
+     */
+    protected $autofflStoreHash;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="autoffl_sandbox_mode", type="boolean", nullable=false, options={"default"=false})
+     */
+    protected $autofflTestMode = false;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="autoffl_maps_api_key", type="string", length=255, nullable=false)
+     */
+    protected $autofflMapsApiKey;
+
+    /**
      * @var ParameterBag
      */
     private $settings;
@@ -72,12 +93,75 @@ class AutomaticFFLSettings extends Transport
         return $this;
     }
 
+    /**
+     * @param string $apiKey
+     *
+     * @return $this
+     */
+    public function setAutoFFLStoreHash($storeHash)
+    {
+        $this->autofflStoreHash = $storeHash;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutoFFLStoreHash()
+    {
+        return $this->autofflStoreHash;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAutoFFLTestMode()
+    {
+        return $this->autofflTestMode;
+    }
+
+    /**
+     * @param bool $testMode
+     *
+     * @return $this
+     */
+    public function setAutoFFLTestMode($testMode)
+    {
+        $this->autofflTestMode = $testMode;
+
+        return $this;
+    }
+
+    /**
+     * @param string $apiKey
+     *
+     * @return $this
+     */
+    public function setAutoFFLMapsApiKey($mapsApiKey)
+    {
+        $this->autofflMapsApiKey = $mapsApiKey;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAutoFFLMapsApiKey()
+    {
+        return $this->autofflMapsApiKey;
+    }
+
     public function getSettingsBag(): ParameterBag
     {
         if (null === $this->settings) {
             $this->settings = new ParameterBag(
                 [
-                    'labels' => $this->getLabels()->toArray()
+                    'labels' => $this->getLabels()->toArray(),
+                    'store_hash' => $this->getAutoFFLStoreHash(),
+                    'test_mode' => $this->isAutoFFLTestMode(),
+                    'maps_api_key' => $this->getAutoFFLMapsApiKey()
                 ]
             );
         }

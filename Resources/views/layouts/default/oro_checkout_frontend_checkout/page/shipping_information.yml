@@ -1,0 +1,26 @@
+layout:
+    actions:
+        - '@setBlockTheme':
+            themes: '@RefactoredGroupAutomaticFFL/layouts/default/oro_checkout_frontend_checkout/templates/shipping_information.html.twig'
+
+        - '@setOption':
+            id: checkout_form_fields
+            optionName: vars.isFFLEnabled
+            optionValue: '=data["auto_ffl_integration_provider"].isFFLEnabled()'
+
+        - '@setOption':
+            id: checkout_form_fields
+            optionName: vars.hasFFLProducts
+            optionValue: '=data["auto_ffl_integration_provider"].hasFFLProducts(checkout)'
+
+        - '@setOption':
+            id: checkout_form_fields
+            optionName: vars.fflSettings
+            optionValue: '=data["auto_ffl_integration_provider"].getFFLSettings()'
+
+        - '@setOption':
+            id: checkout_button_continue
+            optionName: visible
+            optionValue: '=(context["is_logged_in"] || !data["checkout"].getRegisteredCustomerUser() || data["feature"].isFeatureEnabled("allow_checkout_without_email_confirmation_feature")) && (context["is_ffl_enabled"] && context["has_ffl_products"]) && data["checkout"].getShippingAddress()'
+
+    conditions: 'context["workflowStepName"]=="enter_shipping_address" && context["is_ffl_enabled"]==true && context["has_ffl_products"]==true'

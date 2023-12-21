@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        public: true
+
+    RefactoredGroup\Bundle\AutomaticFFLBundle\Controller\Frontend\ShoppingListController:
+        calls:
+            - [setContainer, ['@Psr\Container\ContainerInterface']]
+        tags:
+            - { name: container.service_subscriber }
+
+    RefactoredGroup\Bundle\AutomaticFFLBundle\Controller\Frontend\FindADealerPageController:
+        calls:
+            - [ 'setContainer', [ '@Psr\Container\ContainerInterface' ] ]
+        tags:
+            - { name: container.service_subscriber }

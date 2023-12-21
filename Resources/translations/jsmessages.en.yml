@@ -1,0 +1,10 @@
+refactored_group:
+    automatic_ffl:
+        checkout:
+            condition:
+                has_mixed_products_in_shopping_list:
+                    message: 'You have a mixed cart. Please checkout products that require shipment to an FFL separately.'
+            edit_shipping_address:
+                label: 'Edit'
+            find_a_dealer:
+                label: 'Find a Dealer'

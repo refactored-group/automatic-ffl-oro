@@ -1,0 +1,43 @@
+layout:
+    actions:
+        - '@setBlockTheme':
+            themes: '@RefactoredGroupAutomaticFFL/layouts/default/ffl_frontend_show_find_a_dealer_dialog/layout.html.twig'
+        - '@setOption':
+            id: widget_content
+            optionName: 'attr.data-page-component-module'
+            optionValue: 'orofrontend/js/app/components/widget-form-component'
+        - '@setOption':
+            id: widget_content
+            optionName: class_prefix
+            optionValue: 'find-a-ffl-dealer-modal-container'
+        - '@addTree':
+            items:
+                find_a_ffl_dealer_container:
+                    blockType: container
+                find_a_ffl_dealer_header_container:
+                    blockType: container
+                find_a_ffl_dealer_header_title:
+                    blockType: block
+                find_a_ffl_dealer_header_search_input_field_container:
+                    blockType: container
+                find_a_ffl_dealer_header_search_options_container:
+                    blockType: container
+                find_a_ffl_dealer_search_container:
+                    blockType: container
+                find_a_ffl_dealer_search_results_list_container:
+                    blockType: container
+                find_a_ffl_dealer_search_map_container:
+                    blockType: container
+                find_a_ffl_dealer_map_popup_container:
+                    blockType: container
+            tree:
+                widget_content:
+                    find_a_ffl_dealer_container:
+                        find_a_ffl_dealer_header_container:
+                            find_a_ffl_dealer_header_title: ~
+                            find_a_ffl_dealer_header_search_input_field_container: ~
+                            find_a_ffl_dealer_header_search_options_container: ~
+                        find_a_ffl_dealer_search_container:
+                            find_a_ffl_dealer_search_results_list_container: ~
+                            find_a_ffl_dealer_search_map_container: ~
+                        find_a_ffl_dealer_map_popup_container: ~

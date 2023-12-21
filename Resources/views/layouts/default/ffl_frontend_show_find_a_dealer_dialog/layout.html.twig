@@ -1,0 +1,109 @@
+{% block _find_a_ffl_dealer_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-container',
+    }) %}
+    <div {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_header_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-header ffl-header-container',
+    }) %}
+    <div {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_header_title_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-header__title',
+    }) %}
+    <div {{ block('block_attributes') }}>
+        <h1 class="ffl-header_title_text">{{ 'refactored_group.automatic_ffl.checkout.model.header.title.label'|trans }}</h1>
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_header_search_input_field_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-header__search-field',
+    }) %}
+    <div {{ block('block_attributes') }}>
+        <input
+                type="text"
+                id="ffl-input-search"
+                placeholder="Enter your Zip Code, City or FFL Name"
+                name="ffl_search"
+                value=""
+                size="2"
+                min="0"
+                class="input-text ffl-search-input"
+                autocomplete="off"
+                data-bind="event: {keypress: onEnter}"
+        >
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_header_search_options_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-header__search-options',
+    }) %}
+    <div {{ block('block_attributes') }}>
+        <div class="ffl-option ffl-miles">
+            <select name="ffl_miles_search" id="ffl-miles-search" class="select-ffl dealers-modal-button">
+                <option value="5" data-bind="i18n: '5 Miles'">5 Miles</option>
+                <option value="10" data-bind="i18n: '10 Miles'">10 Miles</option>
+                <option value="30" data-bind="i18n: '30 Miles'">30 Miles</option>
+                <option value="75" data-bind="i18n: '75 Miles'">75 Miles</option>
+            </select>
+        </div>
+        <div class="ffl-option ffl-search">
+            <button class="dealers-modal-button ffl-search-button" data-role="searchBtn">{{ 'Search'|trans }}</button>
+        </div>
+        <div class="ffl-option ffl-cancel">
+            <button class="dealers-modal-button ffl-cancel-button" data-role="closeBtn" type="reset">{{ 'Cancel'|trans }}</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_search_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-search__container',
+    }) %}
+    <div {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_search_results_list_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-search__search-results',
+    }) %}
+    <div {{ block('block_attributes') }}>
+        <div class="ffl-searching-message">Searching for dealers...</div>
+        <div class="ffl-no-dealers-message">No dealers have been found.</div>
+        <div class="ffl-results" id="ffl-results">
+    </div>
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_search_map_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-search__search-map',
+        id: 'ffl-map'
+    }) %}
+    <div {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}
+
+{% block _find_a_ffl_dealer_map_popup_container_widget %}
+    {% set attr = layout_attr_defaults(attr, {
+        '~class': ' ffl-search__map_popup_container',
+        id: 'map_popup_container'
+    }) %}
+    <div {{ block('block_attributes') }}>
+        {{ block_widget(block) }}
+    </div>
+{% endblock %}

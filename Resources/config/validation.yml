@@ -1,3 +1,11 @@
 Oro\Bundle\IntegrationBundle\Entity\Channel:
     constraints:
         - RefactoredGroup\Bundle\AutomaticFFLBundle\Validator\Constraints\UniqueActiveIntegration: ~
+
+Oro\Bundle\ProductBundle\Model\QuickAddRowCollection:
+    constraints:
+        - RefactoredGroup\Bundle\AutomaticFFLBundle\Validator\Constraints\CheckForMixedFFLProducts:
+              hasMixedProducts: 'refactored_group.automatic_ffl.checkout.condition.has_mixed_products.message'
+              groups:
+                  - oro_shopping_list_quick_add_processor
+                  - oro_shopping_list_to_checkout_quick_add_processor

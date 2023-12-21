@@ -1,2 +1,2 @@
 bundles:
-    - { name: 'RefactoredGroup\Bundle\AutomaticFFLBundle\RefactoredGroupAutomaticFFLBundle' }
+    - { name: 'RefactoredGroup\Bundle\AutomaticFFLBundle\RefactoredGroupAutomaticFFLBundle', priority: 100 }
